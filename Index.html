@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geração Sônica - Rádio Ao Vivo</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f051d 0%, #291147 50%, #05010c 100%);
+            color: #ffffff;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .app-container {
+            width: 90%;
+            max-width: 360px;
+            height: 640px;
+            background: rgba(20, 10, 35, 0.9);
+            border: 2px solid #ff007f;
+            border-radius: 30px;
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.4);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            background: linear-gradient(to right, #00f2fe, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #00f2fe;
+            text-transform: uppercase;
+            margin-top: -10px;
+        }
+
+        .player-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: #140a23;
+            border: 4px solid #00f2fe;
+            box-shadow: 0 0 20px #00f2fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wave-animation {
+            width: 100px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .wave-bar {
+            width: 6px;
+            height: 20px;
+            background-color: #ff007f;
+            border-radius: 3px;
+            animation: bounce 1.2s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; background-color: #00f2fe; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; background-color: #ff007f; }
+        .wave-bar:nth-child(4) { animation-delay: 0.6s; background-color: #00f2fe; }
+
+        @keyframes bounce {
+            0%, 100% { height: 20px; }
+            50% { height: 60px; }
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .btn-play {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #ff007f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px #ff007f;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1>Geração Sônica</h1>
+        <div class="subtitle">Rádio Ao Vivo</div>
+
+        <div class="player-circle">
+            <div class="wave-animation">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+        </div>
+
+        <audio id="radioPlayer" src="https://html5.crossradio.com.br:8052/live"></audio>
+
+        <div class="controls">
+            <button class="btn">⏮</button>
+            <button class="btn btn-play" id="playBtn" onclick="togglePlay()">▶</button>
+            <button class="btn">⏭</button>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('radioPlayer');
+        const playBtn = document.getElementById('playBtn');
+        let isPlaying = false;
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playBtn.innerText = '▶';
+            } else {
+                audio.play();
+                playBtn.innerText = '⏸';
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>
